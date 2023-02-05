@@ -65,7 +65,10 @@ const getGender = (register) => {
 
 function getLocation(register) {
   const locations = {
-    А: "Архангай",
+    А: {
+      text: "Архангай",
+      image: "" 
+    },
     Б: "Баян-Өлгий",
     В: "Баянхонгор",
     Г: "Булган",
