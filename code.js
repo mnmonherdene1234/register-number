@@ -26,7 +26,7 @@ document.body.appendChild(result);
 
 function onSubmit() {
   result.innerHTML = "";
-  const register = registerInput.value;
+  const register = registerInput.value.trim().toUpperCase();
 
   if (isValid(register)) {
     result.style.color = "black";
@@ -38,7 +38,13 @@ function onSubmit() {
 
   const birthday = document.createElement("p");
   const location = document.createElement("p");
-  location.appendChild(document.createTextNode(getLocation(register)));
+  const locationImg = document.createElement("img");
+  locationImg.height = 300;
+  result.appendChild(locationImg);
+  const locationObj = getLocation(register);
+  locationImg.src = locationObj.image;
+  locationImg.style.marginTop = "1rem";
+  location.appendChild(document.createTextNode(locationObj.text));
   result.appendChild(location);
   birthday.appendChild(document.createTextNode(getBirthDay(register)));
   result.appendChild(birthday);
@@ -47,7 +53,8 @@ function onSubmit() {
   result.appendChild(gender);
 }
 
-const isValid = (register = "") => /^[А-Я][А-Я][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/.test(register);
+const isValid = (register = "") =>
+  /^[А-Я][А-Я][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/.test(register);
 
 function getBirthDay(register) {
   const year = +register.slice(2, 4);
@@ -67,30 +74,96 @@ function getLocation(register) {
   const locations = {
     А: {
       text: "Архангай",
-      image: "" 
+      image: "/images/Архангай.jpeg",
     },
-    Б: "Баян-Өлгий",
-    В: "Баянхонгор",
-    Г: "Булган",
-    Д: "Говь-Алтай",
-    Е: "Дорноговь",
-    Ж: "Дорнод",
-    З: "Дундговь",
-    И: "Завхан",
-    Й: "Өвөрхангай",
-    К: "Өмнөговь",
-    Л: "Сүхбаатар",
-    М: "Сэлэнгэ",
-    Н: "Төв",
-    О: "Увс",
-    П: "Ховд",
-    Р: "Хөвсгөл",
-    С: "Хэнтий",
-    Т: "Дархан-Уул",
-    Ф: "Орхон",
-    Х: "Говьсүмбэр",
-    У: "Улаанбаатар",
-    Ч: "Улаанбаатар",
+    Б: {
+      text: "Баян-Өлгий",
+      image: "/images/Баян-Өлгий.jpg",
+    },
+    В: {
+      text: "Баянхонгор",
+      image: "/images/Баянхонгор.jpeg",
+    },
+    Г: {
+      text: "Булган",
+      image: "/images/Булган.png",
+    },
+    Д: {
+      text: "Говь-Алтай",
+      image: "/images/Говь-Алтай.jpeg",
+    },
+    Е: {
+      text: "Дорноговь",
+      image: "/images/Дорноговь.jpg",
+    },
+    Ж: {
+      text: "Дорнод",
+      image: "/images/Дорнод.jpeg",
+    },
+    З: {
+      text: "Дундговь",
+      image: "/images/Дундговь.jpeg",
+    },
+    И: {
+      text: "Завхан",
+      image: "/images/Завхан.jpeg",
+    },
+    Й: {
+      text: "Өвөрхангай",
+      image: "/images/Өвөрхангай.jpeg",
+    },
+    К: {
+      text: "Өмнөговь",
+      image: "/images/Өмнөговь.jpg",
+    },
+    Л: {
+      text: "Сүхбаатар",
+      image: "/images/Сүхбаатар.jpeg",
+    },
+    М: {
+      text: "Сэлэнгэ",
+      image: "/images/Сэлэнгэ.png",
+    },
+    Н: {
+      text: "Төв",
+      image: "/images/Төв.jpeg",
+    },
+    О: {
+      text: "Увс",
+      image: "/images/Увс.jpg",
+    },
+    П: {
+      text: "Ховд",
+      image: "/images/Ховд.jpeg",
+    },
+    Р: {
+      text: "Хөвсгөл",
+      image: "/images/Хөвсгөл.jpg",
+    },
+    С: {
+      text: "Хэнтий",
+      image: "/images/Хэнтий.jpg",
+    },
+    Т: {
+      text: "Дархан-Уул",
+      image: "/images/Дархан-Уул.jpgI",
+    },
+    Ф: {
+      text: "Орхон",
+      image: "/images/Орхон.jpeg",
+    },
+    Х: {
+      text: "Говьсүмбэр",
+      image: "/images/Говьсүмбэр.jpeg",
+    },
+    У: {
+      text: "Улаанбаатар",
+      image: "/images/Улаанбаатар.jpg",
+    },
+    Ч: {
+      text: "Улаанбаатар",
+      image: "/images/Улаанбаатар.jpg",
+    },
   };
 
   return locations[register[0]] || "";
