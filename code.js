@@ -47,65 +47,24 @@ function onSubmit() {
   result.appendChild(gender);
 }
 
-function isValid(register = "") {
-  if (register.length !== 10) {
-    return false;
-  }
-
-  for (let i = 0; i < register.length; i++) {
-    if (i === 0 || i === 1) {
-      if (!isNaN(register[i])) {
-        return false;
-      }
-    } else {
-      if (isNaN(register[i])) {
-        return false;
-      }
-    }
-  }
-
-  return true;
-}
+const isValid = (register = "") => /^[А-Я][А-Я][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/.test(register);
 
 function getBirthDay(register) {
-  let birthday = "";
-
-  const yearString = `${register[2]}${register[3]}`;
-  const year = +yearString;
-
-  if (year >= 50) {
-    birthday += `19${yearString} он`;
-  } else {
-    birthday += `20${yearString} он`;
-  }
-
-  let monthString = `${register[4]}${register[5]}`;
-  const month = +monthString;
-
-  if (month > 12) {
-    monthString = monthString[1];
-  }
-
-  birthday += ` ${monthString} сарын`;
-
-  const day = +`${register[6]}${register[7]}`;
-
-  birthday += ` ${day}-ны өдөр`;
-
-  return birthday;
+  const year = +register.slice(2, 4);
+  const century = year >= 50 ? 1900 : 2000;
+  const fullYear = century + year;
+  const month = +register.slice(4, 6);
+  const day = +register.slice(6, 8);
+  return `${fullYear} он ${month} сарын ${day}-ны өдөр`;
 }
 
-function getGender(register) {
+const getGender = (register) => {
   const genderNumber = +register[8];
-  if (genderNumber % 2 === 0) {
-    return "Эмэгтэй";
-  } else {
-    return "Эрэгтэй";
-  }
-}
+  return genderNumber % 2 === 0 ? "Эмэгтэй" : "Эрэгтэй";
+};
 
 function getLocation(register) {
-  return {
+  const locations = {
     А: "Архангай",
     Б: "Баян-Өлгий",
     В: "Баянхонгор",
@@ -129,5 +88,7 @@ function getLocation(register) {
     Х: "Говьсүмбэр",
     У: "Улаанбаатар",
     Ч: "Улаанбаатар",
-  }[register[0]];
+  };
+
+  return locations[register[0]] || "";
 }
